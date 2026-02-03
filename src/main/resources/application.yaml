@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: auth
+
+# AWS Cognito Configuration
+aws:
+  cognito:
+    region: us-east-1  # Replace with your AWS region
+    user-pool-id: us-east-1_qQ7lGjRXF  # Replace with your Cognito User Pool ID
+    client-id: 694bvnh2l1f84m3qjrqq0vhpje  # Replace with your Cognito App Client ID
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.fintracker.auth: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta(---) %green([%thread]) %cyan(%logger{36}) %blue(: %msg%n)"
+    #file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  #file:
+    #name: logs/auth-service.log
+
+# Server Configuration
+server:
+  port: 8081
+  servlet:
+    context-path: /fintracker
