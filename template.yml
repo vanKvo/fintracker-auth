@@ -9,6 +9,7 @@ Resources:
   AuthFunction:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: !Sub "fintracker-auth-${Env}"
       Handler: com.fintracker.auth.StreamLambdaHandler::handleRequest
       Runtime: java21
       CodeUri: .
@@ -26,6 +27,6 @@ Resources:
 Outputs:
   AuthApi:
     Description: URL for application
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ping'
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${Env}/auth/info'
     Export:
-      Name: AuthApi
+      Name: !Sub "${AWS::StackName}-AuthApi"

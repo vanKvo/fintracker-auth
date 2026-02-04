@@ -1,13 +1,26 @@
 version = 0.1
 
 [default.deploy.parameters]
-stack_name = "fintracker-auth"
 resolve_s3 = true
-s3_prefix = "fintracker-auth"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 disable_rollback = true
 image_repositories = []
 
 [default.global.parameters]
+region = "us-east-1"
+
+
+[dev.deploy.parameters]
+stack_name = "fintracker-auth-dev"
+s3_prefix = "fintracker/auth/dev"
+parameter_overrides = "Env=dev"
+
+
+[prod.deploy.parameters]
+stack_name = "fintracker-auth-prod"
+s3_prefix = "fintracker/auth/prod"
+parameter_overrides = "Env=prod"
+
+[prod.global.parameters]
 region = "us-east-1"
