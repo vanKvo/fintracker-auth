@@ -27,6 +27,7 @@ env:
   PROD_PIPELINE_EXECUTION_ROLE: arn:aws:iam::390240928781:role/aws-sam-cli-managed-prod-pipe-PipelineExecutionRole-Ow4NRge4zI7Q
   PROD_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::390240928781:role/aws-sam-cli-managed-prod--CloudFormationExecutionRo-OuUCmM8x9T3E
   PROD_ARTIFACTS_BUCKET: aws-sam-cli-managed-prod-pipeline--artifactsbucket-sheadwi5nmj3
+  PROD_ENV: prod
   # If there are functions with "Image" PackageType in your template,
   # uncomment the line below and add "--image-repository ${PROD_IMAGE_REPOSITORY}" to
   # prod "sam package" and "sam deploy" commands.
@@ -247,3 +248,4 @@ jobs:
             --s3-bucket ${PROD_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --role-arn ${PROD_CLOUDFORMATION_EXECUTION_ROLE}
+            --parameter-overrides Env=${PROD_ENV}
