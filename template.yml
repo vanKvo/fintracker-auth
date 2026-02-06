@@ -5,7 +5,7 @@ Description: AWS Serverless Spring Boot 2 API - org.fintracker::auth
 Parameters:
   Env:
     Type: String
-    Description: The environment name (dev, prod, etc.)
+    Description: The environment name (dev, staging or prod)
     Default: dev
 
 Globals:
@@ -13,6 +13,10 @@ Globals:
     EndpointConfiguration: REGIONAL
 
 Resources:
+  AuthApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref Env # Define an API to control stage name.
   AuthFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -26,14 +30,16 @@ Resources:
       AutoPublishAlias: live
       Events:
         ProxyResource:
-          Type: Api
+          Type: Api # Without defining your API, AWS implicitly creates ServerlessRestApi with stage name default to Prod
           Properties:
             Path: /{proxy+}
             Method: any
+            RestApiId: !Ref MyApi # Link the function to the explicit API
+
 
 Outputs:
-  AuthApi:
+  AuthApiUrl:
     Description: URL for application
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${Env}/auth/info'
+    Value: !Sub 'https://${AuthApi}.execute-api.${AWS::Region}.amazonaws.com/${Env}/auth/info'
     Export:
       Name: !Sub "${AWS::StackName}-AuthApi"
