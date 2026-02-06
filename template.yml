@@ -1,6 +1,13 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: AWS Serverless Spring Boot 2 API - org.fintracker::auth
+
+Parameters:
+  Env:
+    Type: String
+    Description: The environment name (dev, prod, etc.)
+    Default: dev
+
 Globals:
   Api:
     EndpointConfiguration: REGIONAL
