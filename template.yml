@@ -34,7 +34,7 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: any
-            RestApiId: !Ref MyApi # Link the function to the explicit API
+            RestApiId: !Ref AuthApi # Link the function to the explicit API
 
 
 Outputs:
