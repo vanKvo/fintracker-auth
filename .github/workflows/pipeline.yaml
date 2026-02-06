@@ -17,6 +17,7 @@ env:
   TESTING_PIPELINE_EXECUTION_ROLE: arn:aws:iam::390240928781:role/aws-sam-cli-managed-dev-pipel-PipelineExecutionRole-SzKizteZVFkM
   TESTING_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::390240928781:role/aws-sam-cli-managed-dev-p-CloudFormationExecutionRo-4prrZnfkiao3
   TESTING_ARTIFACTS_BUCKET: aws-sam-cli-managed-dev-pipeline-r-artifactsbucket-i0s8fgrxcfzo
+  TESTING_ENV: dev
   # If there are functions with "Image" PackageType in your template,
   # uncomment the line below and add "--image-repository ${TESTING_IMAGE_REPOSITORY}" to
   # testing "sam package" and "sam deploy" commands.
@@ -105,6 +106,7 @@ jobs:
             --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE}
+            --parameter-overrides ${TESTING_ENV}
 
   build-and-package:
     if: github.ref == 'refs/heads/main'
@@ -198,6 +200,7 @@ jobs:
             --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE}
+            --parameter-overrides ${TESTING_ENV}
 
   integration-test:
     if: github.ref == 'refs/heads/main'
